@@ -11,15 +11,22 @@ const port = 3000;
 
 //Step 4 - Add a dynamic year to the footer.
 //Hint: Google to find out how to get the current year using JS.
+app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   //Step 1 - Make the get route work and render the index.ejs file.
+  res.render("index.ejs");
+  res.render("partials/header.ejs");
 });
 
 app.post("/submit", (req, res) => {
   //Step 2 - Make the generate name functionality work
+  const randomElement1 = adj[Math.floor(Math.random() * adj.length)];
+  const randomElement2 = noun[Math.floor(Math.random() * noun.length)];
+  const name = randomElement1 +" "+randomElement2 ;
+  res.render("index.ejs", { name: name }) ;
   //Hint: When the "Generate Name" button in index.ejs is clicked, it should hit up this route.
   //Then:
   //1. You should randomly pick an adjective from the const "adj" and a noun from const "noun",
@@ -29,7 +36,7 @@ app.post("/submit", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  console.log(`Listening on port http://localhost:${port}`);
 });
 
 const adj = [
